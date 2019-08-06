@@ -1,10 +1,50 @@
 ---
 title: Value categories
-category: C++ 팁
+category: C++
 order: 1
 ---
 
-# 
+> https://cppreference.com 내용을 참고해서 상당수 번역하고 입맛에 맞게 수정
+
+> 여기서는 C++17를 기준으로 함
+
+# 1차 분류 (Primary category)
 * lvalue
+  ```C++
+  int n;  // n
+  int& ir = n;  // ir
+  int&& irr = static_cast<int&&>(n);  // irr 값은 rvalue타입이지만 irr로 구성된 표현식 자체는 lvalue
+  struct A { int n; };  // A::n
+  
+  std::cin >> n;  // std::cin도 lvalue
+  std::cout << n << std::endl;  // std::cout, std::endl 모두 lvalue
+
+  std::getline(std::cin, str);
+  std::cout << 1;
+  str1 = str2;
+  ++it; // iterator의 pre-increment 식은 Iterator& 타입의 lvalue를 리턴
+  
+  ++a; --a; // 내장 pre-increment, pre-decrement 식
+  *p; // 내장된 포인터 간접 참조식
+  a[n]; p[n]; // 내장된 참자식, a[n]에서 a,n중 하나는 배열 lvalue
+  ```
+  * array rvalue
+  배열은 함수에서 값으로 리턴될 수 없고 대부분의 형변환 식에서 대상 타입이 될 수도 없다.
+  하지만 배열 prvalue는 type alias를 사용해서 단어 한개짜리 타입명을 만들고 중괄호 초기화식에 대해 함수형 형변환을
+  했을 때 함수형 임시 객체가 만들어 질 수도 있다.
+  클래스 prvalue처럼 배열 prvalue는 temporary materialization을 통해 xvalue로 변환된다.
+  배열 xvalue는 클래스 rvalue의 배열 멤버를 접근하거나 std::move 또는 다른 형변환, 또는 rvalue참조를 리턴하는 함수 호출을 사용해서
+  직접적으로 생성되기도 한다.
+  ```C++
+  void f(int (&&x)[2][3]) { ... }
+  
+  int a[2][3];
+  f(std::move(a));
+  
+  using arr_t = int[2][3];
+  f(arr_t{}); // int[2][3]의 prvlaue가 만들어 짐
+  ```
 * prvalue
 * xvalue
+
+# 혼합 분류 (mixed category)
