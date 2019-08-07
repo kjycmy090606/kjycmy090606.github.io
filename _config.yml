@@ -7,6 +7,7 @@ url: "https://kjycmy090606.github.io"
 baseurl: ""
 google_analytics_key:
 show_full_navigation: true
+markdown: kramdown
 highlighter: rouge
 
 # Values for the jekyll-seo-tag gem (https://github.com/jekyll/jekyll-seo-tag)
@@ -24,7 +25,7 @@ social:
 # -----
 # Build
 
-timezone: Etc/UTC
+timezone: Asia/Seoul
 
 permalink: pretty
 
