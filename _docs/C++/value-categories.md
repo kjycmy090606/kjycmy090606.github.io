@@ -43,14 +43,14 @@ order: 1
   //a.foo;  // prvalue, pending member function call
   B().n;  // xvalue, B()는 prvalue이며 value-init을 통해 초기화
   ~~~
-  
+  *
   ~~~cpp
   a, b; // 콤마식이 제일 마지막 식 b가 lvalue일때
   a ? b : c;  // 3항 조건식에서 b,c가 같은 타입의 lvalue일 때
   "Hello world";  // string literal
   static_cast<int&>(n); // lvalue 참조로의 형변환
   ~~~
-  
+  *
   ~~~cpp
   void foo() {}
   void (&&bar())(){ return static_cast<void(&&)()>(foo); }
