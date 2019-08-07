@@ -30,6 +30,7 @@ order: 1
   ~~~
   
   * a.m, p-\>m, a.\*mp, p-\>\*mp꼴의 객체의 멤버를 접근하는 식
+  
   ~~~cpp
   struct B {
     enum Enum { E1, E2, E3 }
@@ -43,13 +44,16 @@ order: 1
   //a.foo;  // prvalue, pending member function call
   B().n;  // xvalue, B()는 prvalue이며 value-init을 통해 초기화
   ~~~
+  
   *
+  
   ~~~cpp
   a, b; // 콤마식이 제일 마지막 식 b가 lvalue일때
   a ? b : c;  // 3항 조건식에서 b,c가 같은 타입의 lvalue일 때
   "Hello world";  // string literal
   static_cast<int&>(n); // lvalue 참조로의 형변환
   ~~~
+  
   *
   ~~~cpp
   void foo() {}
@@ -65,6 +69,7 @@ order: 1
   클래스 prvalue처럼 배열 prvalue는 temporary materialization을 통해 xvalue로 변환된다.
   배열 xvalue는 클래스 rvalue의 배열 멤버를 접근하거나 std::move 또는 다른 형변환, 또는 rvalue참조를 리턴하는 함수 호출을 사용해서
   직접적으로 생성되기도 한다.
+  
   ~~~cpp
   void f(int (&&x)[2][3]) { ... }
   
@@ -77,6 +82,7 @@ order: 1
   
   * pending member function call   
   mf가 비정적 멤버 함수일 때 `a.mf`, `p-\>mf`와 같은 식이라던지, pmf가 멤버 함수로의 포인터일 때 `a.*pmf`, `p->*pmf`와 같은 식은 prvalue 식으로 분류된다. 다만 함수 호출 연산자의 왼쪽인자로 사용되는 경우를 제외하고는, 함수인자들처럼 참조를 초기화하거나 기타 어떤 목적으로든 사용될 수 없다.
+  
   ~~~cpp
   struct A { int foo() { ... } };
   A a;
