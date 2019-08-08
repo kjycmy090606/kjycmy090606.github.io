@@ -1,5 +1,5 @@
 ---
 title: Memory Order
 category: C++
-order: 2
+order: 3
 ---
