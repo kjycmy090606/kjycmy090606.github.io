@@ -19,9 +19,9 @@ order: 1
     std::cin >> n;  // std::cin도 lvalue
     std::cout << n << std::endl;  // std::cout, std::endl 모두 lvalue
 
-    std::getline(std::cin, str);
-    std::cout << 1;
-    str1 = str2;
+    std::getline(std::cin, str); // getline()의 리턴타입은 std::basic_istream<C,T>&
+    std::cout << 1; // std::cout
+    str1 = str2;  // basic_string& operator=(...);
     ++it; // iterator의 pre-increment 식은 Iterator& 타입의 lvalue를 리턴
 
     ++a; --a; // 내장 pre-increment, pre-decrement 식
@@ -40,13 +40,11 @@ order: 1
     } b;
 
     b.n;  // lvalue
-    b.E;  // prvalue
-    //a.foo;  // prvalue, pending member function call
+    b.E;  // prvalue, E는 멤버 enum
+    //a.foo;  // prvalue, foo는 비정적 멤버함수, 이 식은 pending member function call
     B().n;  // xvalue, B()는 prvalue이며 value-init을 통해 초기화
     ~~~
-  
-  *
-  
+    
     ~~~cpp
     a, b; // 콤마식이 제일 마지막 식 b가 lvalue일때
     a ? b : c;  // 3항 조건식에서 b,c가 같은 타입의 lvalue일 때
@@ -54,12 +52,12 @@ order: 1
     static_cast<int&>(n); // lvalue 참조로의 형변환
     ~~~
   
-  *
     ~~~cpp
     void foo() {}
     void (&&bar())(){ return static_cast<void(&&)()>(foo); }
+    
     bar();  //lvalue, 즉, &bar()와 같은 식이 가능함
-    static_cast<void(&&)(int)>(x);  // 함수로의 rvalue 참조로 형변환하는 식
+    static_cast<void(&&)(int)>(foo);  // 함수로의 rvalue 참조로 형변환하는 식, 이 자체로도 lvalue
     ~~~
   
   * array rvalue   
@@ -91,6 +89,10 @@ order: 1
     ~~~  
   
 * prvalue
+    `not completed`
+    
 * xvalue
-
+    `not completed`
+    
 # 혼합 분류 (mixed category)
+    `not completed`
