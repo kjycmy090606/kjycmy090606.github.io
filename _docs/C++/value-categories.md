@@ -89,7 +89,48 @@ order: 1
     ```
   
 * prvalue   
-    `not completed`
+    다음의 경우 prvalue
+    ```cpp
+    // 42, true, nullptr과 같은 literal
+    int n = 42;
+    bool b = true;
+    float* f = nullptr;
+    const char* p = "hello";    // 단 "hello"같은 string literal은 prvalue가 아니다
+    
+    str.substr(1, 2);   // 리턴타입이 참조가 아닌 함수의 호출식, basic_string substr(...) const
+    str1 + str2;    // 리턴타입이 참조가 아닌 오버로드된 연산자식, basic_string operator+(...);
+    a++;    // 내장 post-increment, post-decrement식
+    a+b;    // 내장 산술식
+    a && b; // 내장 논리식
+    a < b;  // 내장 비교식
+    &a; // 내장 address-of 식
+    ```
+    
+    * `a.m`, `p->m` 에서 m이 멤버 enum 또는 비정적 멤버 함수 (a에 대한 단서는 따로 없다)   
+    ```cpp
+    //앞서 lvalue쪽 코드 참조
+    ```
+    * `a.*mp`, `p->*mp`에서 mp가 멤버 함수로의 포인터   
+    *
+    ```cpp
+    a,b; // b가 rvalue이 내장 콤마식
+    a? b : c;
+    static_cast<double>(x); // 참조가 아닌 타입으로의 형변환
+    std::string{};  //
+    this;
+    
+    enum class E { E1, E2, E3 };
+    E e = E::E1;    // E::E1
+    
+    template<int N>
+    struct X {
+        int foo() { return N; }
+    };
+    X<12> x;
+    x.foo(1);
+    
+    [](int x) { return x + 1; };    // 람다식
+    ```
     
 * xvalue   
     `not completed`
